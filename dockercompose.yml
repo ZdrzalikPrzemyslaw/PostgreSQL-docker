@@ -1,0 +1,17 @@
+version: '2.2'
+services:
+  database:
+    build:
+        context: ./
+        dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    container_name: courses_auth_database
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8282:8080"
+    depends_on:
+      - database
+    container_name: courses_adminer
