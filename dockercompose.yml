@@ -4,14 +4,26 @@ services:
     build:
         context: ./
         dockerfile: Dockerfile
+    networks:
+      - backend
     ports:
       - "5432:5432"
     container_name: courses_auth_database
   adminer:
     image: adminer
     restart: always
+    networks:
+      - backend
     ports:
       - "8282:8080"
     depends_on:
       - database
     container_name: courses_adminer
+
+networks:
+  backend:
+    name: backend_network
+    driver: bridge
+  default:
+    name: database_network_default
+    driver: bridge
